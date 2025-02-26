@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "146821950971",
+    "project_id": "canela-819bd",
+    "storage_bucket": "canela-819bd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146821950971:android:3cad3d06f259420521ef5e",
+        "android_client_info": {
+          "package_name": "com.negocio.canela"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAO4oMlHwK_klUX21scPHsNGKkLCcrTCf4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
