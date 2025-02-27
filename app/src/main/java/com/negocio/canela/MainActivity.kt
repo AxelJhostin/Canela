@@ -25,13 +25,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.negocio.canela.Componentes.BotonBasico
+import com.negocio.canela.Navegacion.Navegacion
 import com.negocio.canela.ui.theme.CanelaTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            vistaPrevia()
+            Navegacion()
         }
     }
 }
@@ -70,12 +71,18 @@ fun vistaPrevia() {
                 Spacer(modifier = Modifier.height(10.dp))
             }
             Spacer(modifier = Modifier.height(10.dp))
-            Column(modifier = Modifier.weight(1f),
+            Column(
+                modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center) {
-                BotonBasico("Ingresar :)",20)
+                verticalArrangement = Arrangement.Center
+            ) {
+                BotonBasico("Ingresar :)", 20) {
+                    //aqui va lo que hace el boton
+                }
                 Spacer(modifier = Modifier.height(20.dp))
-                BotonBasico("Registrarse ;)",20)
+                BotonBasico("Registrarse ;)", 20) {
+                    //aqui va lo que hace el boton
+                }
             }
 
 
