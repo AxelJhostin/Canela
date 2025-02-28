@@ -62,7 +62,9 @@ fun PantInicial(navController: NavController) {
             ) {
                 BotonBasico(texto = "Ingresar", tamanio = 20) { }
                 EspacioH(10)
-                BotonBasico(texto = "Registrarse", tamanio = 20) { }
+                BotonBasico(texto = "Registrarse", tamanio = 20) {
+                    navController.navigate("RegistroUsuario")
+                }
             }
         }
 

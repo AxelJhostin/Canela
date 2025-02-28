@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.negocio.canela.Vistas.LogoInicial
 import com.negocio.canela.Vistas.PantInicial
+import com.negocio.canela.Vistas.RegistroUsuario
 
 @Composable
 fun Navegacion(){
@@ -19,6 +20,9 @@ fun Navegacion(){
         }
         composable("PantInicial") {
             PantInicial(navController)
+        }
+        composable("RegistroUsuario") {
+            RegistroUsuario(navController)
         }
     }
 }
