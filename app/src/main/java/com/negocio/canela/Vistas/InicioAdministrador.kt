@@ -18,17 +18,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.negocio.canela.Componentes.BotonBasico
 import com.negocio.canela.Componentes.EspacioV
 import com.negocio.canela.Componentes.IngresarTexto
 import com.negocio.canela.R
-import com.negocio.canela.ViewModel.LoginUsuarioViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InicioUsuario(navController: NavController,loginUsuarioViewModel: LoginUsuarioViewModel) {
+fun InicioAdministrador(navController: NavController) {
     // Variables de entrada
     var correo by remember { mutableStateOf("") }
     var contrasenia by remember { mutableStateOf("") }
@@ -36,9 +36,6 @@ fun InicioUsuario(navController: NavController,loginUsuarioViewModel: LoginUsuar
     // Variables de error
     var errorCorreo by remember { mutableStateOf(false) }
     var errorContrasenia by remember { mutableStateOf(false) }
-
-    val mostrarAlerta by loginUsuarioViewModel.mostrarAlerta.collectAsState()
-    val mensajeError by loginUsuarioViewModel.mensajeError.collectAsState()
 
     Scaffold(
         topBar = {
@@ -83,6 +80,8 @@ fun InicioUsuario(navController: NavController,loginUsuarioViewModel: LoginUsuar
                         .clip(CircleShape),
                     contentScale = ContentScale.Fit
                 )
+                EspacioV(15)
+                Text("Administrador :)", fontSize = 45.sp, color = Color.White)
             }
 
             // Formulario de inicio de sesión
@@ -125,25 +124,17 @@ fun InicioUsuario(navController: NavController,loginUsuarioViewModel: LoginUsuar
                 // Botón para iniciar sesión
                 BotonBasico(texto = "Iniciar Sesión", tamanio = 20) {
                     // Aquí iría la lógica de autenticación
-                    loginUsuarioViewModel.loginUsuario(email = correo, contrasenia = contrasenia){
-                        navController.navigate("VistaUsuario")
-                    }
                 }
 
                 EspacioV(30) // Espacio al final para evitar que el botón quede pegado abajo
             }
         }
     }
-    if (mostrarAlerta){
-        AlertDialog(
-            onDismissRequest = {loginUsuarioViewModel.cerrarAlerta()},
-            confirmButton = {
-                TextButton(onClick = {loginUsuarioViewModel.cerrarAlerta()}) {
-                    Text("Aceptar")
-                }
-            },
-            title = { Text("Error")},
-            text = { Text(mensajeError)}
-        )
-    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun VistaPreviaInicioAdministrador() {
+    val navController = rememberNavController()
+    InicioAdministrador(navController)
 }

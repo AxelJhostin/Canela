@@ -50,7 +50,8 @@ fun IngresarTexto(
                 unfocusedBorderColor = BlancoTexto.copy(alpha = 0.5f),  // Borde cuando no está enfocado
                 cursorColor = BlancoTexto,  // Color del cursor
                 errorBorderColor = RojoError,  // Borde en caso de error
-                focusedTextColor = BlancoTexto  // Color del texto ingresado
+                focusedTextColor = BlancoTexto,  // Color del texto ingresado
+                unfocusedTextColor = BlancoTexto
             ),
             modifier = Modifier
                 .fillMaxWidth()

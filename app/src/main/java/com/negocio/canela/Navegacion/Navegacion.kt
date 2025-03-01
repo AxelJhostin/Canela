@@ -4,12 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.negocio.canela.ViewModel.LoginUsuarioViewModel
+import com.negocio.canela.Vistas.InicioAdministrador
+import com.negocio.canela.Vistas.InicioUsuario
 import com.negocio.canela.Vistas.LogoInicial
 import com.negocio.canela.Vistas.PantInicial
 import com.negocio.canela.Vistas.RegistroUsuario
+import com.negocio.canela.Vistas.VistaUsuario
 
 @Composable
-fun Navegacion(){
+fun Navegacion(loginUsuario: LoginUsuarioViewModel){
     val navController = rememberNavController()
     NavHost(
         navController = navController,
@@ -21,8 +25,17 @@ fun Navegacion(){
         composable("PantInicial") {
             PantInicial(navController)
         }
+        composable("InicioUsuario"){
+            InicioUsuario(navController,loginUsuario)
+        }
         composable("RegistroUsuario") {
-            RegistroUsuario(navController)
+            RegistroUsuario(navController,loginUsuario)
+        }
+        composable("InicioAdministrador") {
+            InicioAdministrador(navController)
+        }
+        composable("VistaUsuario") {
+            VistaUsuario(navController)
         }
     }
 }

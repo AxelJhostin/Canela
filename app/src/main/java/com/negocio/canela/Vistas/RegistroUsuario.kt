@@ -24,10 +24,11 @@ import com.negocio.canela.Componentes.BotonBasico
 import com.negocio.canela.Componentes.EspacioV
 import com.negocio.canela.Componentes.IngresarTexto
 import com.negocio.canela.R
+import com.negocio.canela.ViewModel.LoginUsuarioViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegistroUsuario(navController: NavController) {
+fun RegistroUsuario(navController: NavController,loginUsuarioViewModel: LoginUsuarioViewModel) {
     // Variables donde van los datos de usuario
     var correo by remember { mutableStateOf("") }
     var contrasenia by remember { mutableStateOf("") }
@@ -43,6 +44,9 @@ fun RegistroUsuario(navController: NavController) {
     var errorApellido by remember { mutableStateOf(false) }
     var errorCedula by remember { mutableStateOf(false) }
     var errorCelular by remember { mutableStateOf(false) }
+
+    val mostrarAlerta by loginUsuarioViewModel.mostrarAlerta.collectAsState()
+    val mensajeError by loginUsuarioViewModel.mensajeError.collectAsState()
 
     Scaffold(
         topBar = {
@@ -176,6 +180,11 @@ fun RegistroUsuario(navController: NavController) {
                 // Botón de registro
                 BotonBasico(texto = "Registrarse", tamanio = 20) {
                     // Aquí iría la lógica para registrar al usuario
+                    //detalle para arreglar, si algun dato falta igual ingresa, corregir eso
+                    //no crea la coleccion en Firebase
+                    loginUsuarioViewModel.crearUsuario(correo,nombre,apellido,contrasenia,cedula,celular){
+                        navController.navigate("VistaUsuario")
+                    }
                 }
 
                 EspacioV(20) // Espacio al final para evitar que el botón quede pegado abajo
@@ -184,9 +193,3 @@ fun RegistroUsuario(navController: NavController) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun VistPreviaRegistroUsuario() {
-    val navController = rememberNavController()
-    RegistroUsuario(navController)
-}
