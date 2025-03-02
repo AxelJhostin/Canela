@@ -132,9 +132,3 @@ fun InicioAdministrador(navController: NavController) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun VistaPreviaInicioAdministrador() {
-    val navController = rememberNavController()
-    InicioAdministrador(navController)
-}
