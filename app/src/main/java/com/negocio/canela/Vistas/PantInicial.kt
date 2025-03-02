@@ -108,7 +108,7 @@ fun PantInicial(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            RedesSocialesCuadro { }
+            RedesSocialesCuadro(urlInstagram = "https://www.instagram.com/enesemes.ec?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==")
         }
     }
 }

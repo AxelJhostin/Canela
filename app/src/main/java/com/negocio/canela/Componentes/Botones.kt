@@ -1,5 +1,7 @@
 package com.negocio.canela.Componentes
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -27,6 +29,7 @@ import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -97,5 +100,32 @@ fun RedesSocialesCuadro(onClick: () -> Unit) {
         )
         EspacioH(4)
         Text("enesemec.ec", fontSize = 20.sp, color = Color.White)
+    }
+}
+
+@Composable
+fun RedesSocialesCuadro(urlInstagram: String) {
+    val context = LocalContext.current
+
+    Row(
+        modifier = Modifier
+            .clickable {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlInstagram))
+                context.startActivity(intent)
+            }
+            .padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = painterResource(R.drawable.instagramlogo),
+            contentDescription = "Instagram",
+            modifier = Modifier.size(50.dp)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = "enesemec.ec",
+            fontSize = 20.sp,
+            color = Color.White
+        )
     }
 }
