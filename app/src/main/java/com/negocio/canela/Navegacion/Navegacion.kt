@@ -35,7 +35,7 @@ fun Navegacion(loginUsuario: LoginUsuarioViewModel){
             InicioAdministrador(navController)
         }
         composable("VistaUsuario") {
-            VistaUsuario(navController)
+            VistaUsuario(navController,loginUsuario)
         }
     }
 }

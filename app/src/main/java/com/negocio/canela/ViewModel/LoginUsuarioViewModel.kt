@@ -124,7 +124,7 @@ class LoginUsuarioViewModel : ViewModel() {
         auth.signOut()
     }
 
-    private fun mostrarError(mensaje: String) {
+    fun mostrarError(mensaje: String) {
         _mensajeError.value = mensaje
         _mostrarAlerta.value = true
     }

@@ -179,17 +179,39 @@ fun RegistroUsuario(navController: NavController,loginUsuarioViewModel: LoginUsu
 
                 // Botón de registro
                 BotonBasico(texto = "Registrarse", tamanio = 20) {
-                    // Aquí iría la lógica para registrar al usuario
-                    //detalle para arreglar, si algun dato falta igual ingresa, corregir eso
-                    //no crea la coleccion en Firebase
-                    loginUsuarioViewModel.crearUsuario(correo,nombre,apellido,contrasenia,cedula,celular){
-                        navController.navigate("VistaUsuario")
+                    // Verificamos si hay campos vacíos y actualizamos los estados de error
+                    errorCorreo = correo.isEmpty()
+                    errorContrasenia = contrasenia.isEmpty()
+                    errorNombre = nombre.isEmpty()
+                    errorApellido = apellido.isEmpty()
+                    errorCedula = cedula.isEmpty()
+                    errorCelular = celular.isEmpty()
+
+                    // Si hay algún error, mostramos la alerta
+                    if (errorCorreo || errorContrasenia || errorNombre || errorApellido || errorCedula || errorCelular) {
+                        loginUsuarioViewModel.mostrarError("Todos los campos son obligatorios")
+                    } else {
+                        // Si todo está bien, registramos el usuario
+                        loginUsuarioViewModel.crearUsuario(correo, nombre, apellido, contrasenia, cedula, celular) {
+                            navController.navigate("VistaUsuario")
+                        }
                     }
                 }
-
                 EspacioV(20) // Espacio al final para evitar que el botón quede pegado abajo
             }
         }
+    }
+    if (mostrarAlerta) {
+        AlertDialog(
+            onDismissRequest = { loginUsuarioViewModel.cerrarAlerta() },
+            confirmButton = {
+                Button(onClick = { loginUsuarioViewModel.cerrarAlerta() }) {
+                    Text("Aceptar")
+                }
+            },
+            title = { Text("Error") },
+            text = { Text(mensajeError) }
+        )
     }
 }
 

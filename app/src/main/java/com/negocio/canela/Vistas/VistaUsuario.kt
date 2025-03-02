@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,18 +36,22 @@ import com.negocio.canela.Componentes.BotonBasico
 import com.negocio.canela.Componentes.EspacioV
 import com.negocio.canela.Componentes.IngresarTexto
 import com.negocio.canela.R
+import com.negocio.canela.ViewModel.LoginUsuarioViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VistaUsuario(navController: NavController){
+fun VistaUsuario(navController: NavController, loginUsuarioViewModel: LoginUsuarioViewModel) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Usuario", color = Color.White) },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                        loginUsuarioViewModel.cerrarSesion()
+                    }) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = Icons.Default.ExitToApp,
                             contentDescription = "Regresar",
                             tint = Color.White
                         )
@@ -69,11 +74,4 @@ fun VistaUsuario(navController: NavController){
 
         }
     }
-}
-
-@Preview
-@Composable
-fun vistaUsuario(){
-    val navController = rememberNavController()
-    VistaUsuario(navController)
 }
