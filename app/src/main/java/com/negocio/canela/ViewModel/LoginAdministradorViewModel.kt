@@ -40,7 +40,7 @@ class LoginAdministradorViewModel:ViewModel() {
             auth.createUserWithEmailAndPassword(email, contrasenia)
                 .addOnCompleteListener { tarea ->
                     if (tarea.isSuccessful) {
-                        guardarUsuario(email, nombre, apellido, contrasenia, cedula, celular)
+                        guardarAdministrador(email, nombre, apellido, contrasenia, cedula, celular)
                         alProcesar()
                     } else {
                         val errorMsg = tarea.exception?.message ?: "Error al crear usuario"
@@ -84,7 +84,7 @@ class LoginAdministradorViewModel:ViewModel() {
         }
     }
 
-    private fun guardarUsuario(
+    private fun guardarAdministrador(
         email: String,
         nombre: String,
         apellido: String,
