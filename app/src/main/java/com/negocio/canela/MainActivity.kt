@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.negocio.canela.Componentes.BotonBasico
 import com.negocio.canela.Navegacion.Navegacion
+import com.negocio.canela.ViewModel.LoginAdministradorViewModel
 import com.negocio.canela.ViewModel.LoginUsuarioViewModel
 import com.negocio.canela.ui.theme.CanelaTheme
 
@@ -34,8 +35,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val loginUsuarioViewModel: LoginUsuarioViewModel by viewModels()
+        val loginAdministradorViewModel: LoginAdministradorViewModel by viewModels()
         setContent {
-            Navegacion(loginUsuarioViewModel)
+            Navegacion(loginUsuarioViewModel,loginAdministradorViewModel)
         }
     }
 }

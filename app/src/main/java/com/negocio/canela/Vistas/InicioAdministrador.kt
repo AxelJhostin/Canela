@@ -25,10 +25,11 @@ import com.negocio.canela.Componentes.BotonBasico
 import com.negocio.canela.Componentes.EspacioV
 import com.negocio.canela.Componentes.IngresarTexto
 import com.negocio.canela.R
+import com.negocio.canela.ViewModel.LoginAdministradorViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InicioAdministrador(navController: NavController) {
+fun InicioAdministrador(navController: NavController, loginAdministradorViewModel: LoginAdministradorViewModel) {
     // Variables de entrada
     var correo by remember { mutableStateOf("") }
     var contrasenia by remember { mutableStateOf("") }
@@ -36,6 +37,10 @@ fun InicioAdministrador(navController: NavController) {
     // Variables de error
     var errorCorreo by remember { mutableStateOf(false) }
     var errorContrasenia by remember { mutableStateOf(false) }
+
+    // Estado para alertas
+    val mostrarAlerta by loginAdministradorViewModel.mostrarAlerta.collectAsState()
+    val mensajeError by loginAdministradorViewModel.mensajeError.collectAsState()
 
     Scaffold(
         topBar = {
@@ -123,12 +128,39 @@ fun InicioAdministrador(navController: NavController) {
 
                 // Botón para iniciar sesión
                 BotonBasico(texto = "Iniciar Sesión", tamanio = 20) {
-                    // Aquí iría la lógica de autenticación
+                    if (correo.isEmpty() || contrasenia.isEmpty()) {
+                        loginAdministradorViewModel.mostrarError("Todos los campos son obligatorios")
+                    } else {
+                        loginAdministradorViewModel.loginAdministrador(correo, contrasenia) {
+                            navController.navigate("VistaAdministrador")
+                        }
+                    }
                 }
 
                 EspacioV(30) // Espacio al final para evitar que el botón quede pegado abajo
             }
         }
     }
+
+    // Mostrar alerta de error
+    if (mostrarAlerta) {
+        AlertDialog(
+            onDismissRequest = { loginAdministradorViewModel.cerrarAlerta() },
+            title = { Text("Error") },
+            text = { Text(mensajeError) },
+            confirmButton = {
+                Button(onClick = { loginAdministradorViewModel.cerrarAlerta() }) {
+                    Text("Aceptar")
+                }
+            }
+        )
+    }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun VistaInicioAdministrador() {
+    val navController = rememberNavController()
+    val viewModel = LoginAdministradorViewModel()
+    InicioAdministrador(navController, viewModel)
+}
