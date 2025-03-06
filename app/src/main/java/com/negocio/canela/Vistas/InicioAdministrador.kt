@@ -136,6 +136,12 @@ fun InicioAdministrador(navController: NavController, loginAdministradorViewMode
                         }
                     }
                 }
+                EspacioV(5)
+                TextButton(onClick = {
+                    navController.navigate("RegistroAdministrador")
+                }) {
+                    Text("Registrar nuevo admin", fontSize = 15.sp, color = Color.Cyan)
+                }
 
                 EspacioV(30) // Espacio al final para evitar que el botón quede pegado abajo
             }

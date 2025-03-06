@@ -10,6 +10,7 @@ import com.negocio.canela.Vistas.InicioAdministrador
 import com.negocio.canela.Vistas.InicioUsuario
 import com.negocio.canela.Vistas.LogoInicial
 import com.negocio.canela.Vistas.PantInicial
+import com.negocio.canela.Vistas.RegistroAdministrador
 import com.negocio.canela.Vistas.RegistroUsuario
 import com.negocio.canela.Vistas.VistaAdministrador
 import com.negocio.canela.Vistas.VistaUsuario
@@ -41,6 +42,9 @@ fun Navegacion(loginUsuario: LoginUsuarioViewModel,loginAdministrador: LoginAdmi
         }
         composable("VistaAdministrador") {
             VistaAdministrador(navController)
+        }
+        composable("RegistroAdministrador") {
+            RegistroAdministrador(navController,loginAdministrador)
         }
     }
 }

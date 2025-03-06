@@ -24,35 +24,32 @@ class LoginAdministradorViewModel:ViewModel() {
 
     fun crearAdministrador(
         email: String,
+        contrasenia: String,
         nombre: String,
         apellido: String,
-        contrasenia: String,
         cedula: String,
         celular: String,
-        alProcesar: () -> Unit
-    ){
-        viewModelScope.launch {
-            if (email.isEmpty() || contrasenia.isEmpty() || nombre.isEmpty()) {
-                mostrarError("Todos los campos son obligatorios")
-                return@launch
-            }
-
-            auth.createUserWithEmailAndPassword(email, contrasenia)
-                .addOnCompleteListener { tarea ->
-                    if (tarea.isSuccessful) {
-                        guardarAdministrador(email, nombre, apellido, contrasenia, cedula, celular)
-                        alProcesar()
-                    } else {
-                        val errorMsg = tarea.exception?.message ?: "Error al crear usuario"
-                        if (errorMsg.contains("The email address is already in use", ignoreCase = true)) {
-                            mostrarError("Este correo ya está registrado. Usa otro o inicia sesión.")
-                        } else {
-                            mostrarError(errorMsg)
+        onResult: (Boolean, String) -> Unit // Asegura que esta línea esté presente
+    ) {
+        auth.createUserWithEmailAndPassword(email, contrasenia)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val admin = Administrador(nombre, apellido, cedula, celular, email)
+                    fireStore.collection("administradores")
+                        .document(email)
+                        .set(admin)
+                        .addOnSuccessListener {
+                            onResult(true, "Administrador registrado con éxito")
                         }
-                    }
+                        .addOnFailureListener { e ->
+                            onResult(false, "Error al registrar en Firestore: ${e.message}")
+                        }
+                } else {
+                    onResult(false, "Error en autenticación: ${task.exception?.message}")
                 }
-        }
+            }
     }
+
 
     fun loginAdministrador(email: String, contrasenia: String, alProcesar: () -> Unit) {
         viewModelScope.launch {
@@ -129,5 +126,6 @@ class LoginAdministradorViewModel:ViewModel() {
         _mensajeError.value = mensaje
         _mostrarAlerta.value = true
     }
+
 
 }
